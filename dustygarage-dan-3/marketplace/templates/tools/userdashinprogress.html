@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<main>
+    <!---Contains Main Content-->
+    <section class="container-fluid my-4 text-left" id="services">
+
+        <h3 class="display-4 mx-auto col-sm-12">{{current_user.name}}'s Dashboard</h3>
+
+    </section>
+
+    <!--breadcrumb-start-->>
+
+    <nav aria-label="breadcrumb">
+
+        <ol class="container-fluid ml-4 breadcrumb bg-white">
+
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+
+
+
+            <li class="breadcrumb-item"><a href="manage.html">{{current_user.name}}'s Dashboard</a></li>
+
+
+
+        </ol>
+
+    </nav>
+
+    <!---Main Content-->
+    <!--Items Selling-->
+
+
+    <!-- List of Items being sold by user -->
+    <div class="col-md-6">
+
+
+    </div>
+
+    </div>
+    </div>
+    <div class="container-fluid" id="itemdescription">
+        <section class="container-fluid text-center " id="services ">
+
+            <div class="row py-5 " style="background: lightgrey ">
+
+                <article class="col-sm-6 " id="browse ">
+
+                    <div class="card">
+                        <h5 class="card-header">Items you are selling</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+
+                                            <th class="border-0">Name</th>
+                                            <th class="border-0">List Date</th>
+                                            <th class="border-0">List Price</th>
+
+                                            <th class="border-0">Highest Bid</th>
+                                            <th class="border-0">Image</th>
+                                            <th class="border-0 text-center"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        {% for tool in tool %}
+                                        <tr>
+                                            <td>{{tool.tool_name}}</td>
+                                            <td>{{tool.date_created.strftime("%b %d %Y")}}</td>
+                                            <th scope="row">${{tool.list_price}}</th>
+                                            <td>Not Availiable</td>
+                                            <td> <img class="img-fluid img-thumbnail" style="max-width: 70px;"
+                                                    src={{'/static/img/' + tool.images }}></td>
+                                            <td>
+                                                <form><a href="{{'/tools/{}/manage'.format(tool.id)}}"><button
+                                                            type="button" onclick="login"
+                                                            class=" btn btn-light mt-4">Manage Item</button></a>
+                                                </form>
+                                            </td>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    </tr>
+                    {% endfor %}
+
+
+
+                    </tbody>
+
+                    </table>
+
+                </article>
+
+                <article class="col-sm-6 " id="sell ">
+
+                    <div class="card">
+                        <h5 class="card-header">Items you have bid on</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+
+                                            <th class="border-0">Name</th>
+                                            <th class="border-0">List Date</th>
+                                            <th class="border-0">List Price</th>
+
+                                            <th class="border-0">Highest Bid</th>
+                                            <th class="border-0">Image</th>
+                                            <th class="border-0 text-center"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        {% for bid, tool in bids %}
+                                        <tr>
+                                            <td>{{bid.tool_name}}</td>
+                                            <td>{{tool.bid_date.strftime("%b %d %Y")}}</td>
+                                            <th scope="row">${{bid.list_price}}</th>
+                                            <td>Not Availiable</td>
+                                            <td> <img class="img-fluid img-thumbnail" style="max-width: 70px;"
+                                                    src={{'/static/img/' + bid.images }}></td>
+                                            <td>
+                                                <form><a href="{{'/tools/{}'.format(bid.id)}}"><button type="button"
+                                                            onclick="login" class=" btn btn-light mt-4">More
+                                                            Details</button></a>
+                                                </form>
+                                            </td>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    </tr>
+                    {% endfor %}
+
+
+
+                    </tbody>
+
+                    </table>
+
+                </article>
+
+            </div>
+
+            <!--End Row Div-->
+    </div>
+
+    </section>
+
+
+
+
+</main>
+
+</div>
+{% endblock %}

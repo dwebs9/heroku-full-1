@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+
+{% block content %}
+
+
+
+</header>
+
+
+<main>
+
+    <!-- Flash Messages -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+    <!---Check if there are any messages-->
+    <div class="container">
+        <div class="row mt-3 mb-3">
+            <div class="col-md-12">
+                {% for category, message in messages %}
+                <!---Loops through the messages-->
+                <div class="{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %} {% endwith %}
+    <!-- /End Flash Messages -->
+
+    <!---Contains Main Content-->
+    <section class=" container-fluid my-4 text-left" id="services">
+        <h3 class="display-4 mx-auto col-sm-12">{{tool.brand}} {{tool.tool_name}}</h3>
+    </section>
+
+    <!--breadcrumb-start-->
+
+    <nav aria-label="breadcrumb">
+
+        <ol class="container-fluid ml-4 breadcrumb bg-white">
+
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">{{tool.category}}</a></li>
+            <li class="breadcrumb-item"><a href="#">{{tool.brand}}</a></li>
+            <li class="breadcrumb-item"><a href="#">{{tool.tool_name}}</a></li>
+
+        </ol>
+
+    </nav>
+
+    <!-- Breadcrumb End -->
+
+
+    <!---Main Content-->
+
+    <!-- Item Description -->
+
+    <div class="container-fluid" id="itemdescription">
+
+        <div class="row p-4" style="background-color: lightgray">
+            <div class="col-sm-4">
+                <h4>{{tool.brand}} {{tool.tool_name}}</h4>
+                <p> {{tool.desc}}</p </div> <article id="itemimg">
+                <img class="img-fluid mw-30" src={{'/static/img/' + tool.images }} style="max-width:400px;">
+                </article>
+
+                <div class=" col-sm-4 card mx-auto py-3 h-25 border-0" style="background-color: lightgray">
+
+                    <div class="card-body bg-dark text-center rounded text-white">
+                        <medium class="text-white-50 ">Starting Price</medium><br>
+                        <h1 class="card-title center pricing-card-title display-3">${{list_price}}</h1>
+                        {% if tool.soldStatus %}
+                        <medium class="text-white-50 ">Item Sold</medium><br>
+
+                        {% elif current_user.is_authenticated %}
+
+
+
+
+                        {% if bid_user %}
+                        <medium class="text-white-50 ">Current Bid</medium><br>
+                        <medium class="text-white-50 ">{{ current_bid_amount }}</medium><br>
+                        <button type="button" class="btn btn-light py-2 mt-4" data-toggle="modal"
+                            data-target="#bidModal">Update Bid</button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="bidModal" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-dark">Update your Bid</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group justify-content-center py-3 my-3">
+
+                                            <form method=post action="/tools/{{tool.id}}/bid">
+
+                                                {{form.csrf_token}}
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="bid-price">$</span>
+
+                                                    {{form.bidamount(placeholder="Enter an amount", class_="form-control")}}
+
+                                                </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <div class="input-group float-right">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                {{form.submit(class_="btn btn-primary mx-2")}}
+                                            </div>
+                                        </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                {% else %}
+
+
+                <button type="button" class="btn btn-light mt-4" data-toggle="modal" data-target="#bidModal">Make a
+                    Bid</button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="bidModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title text-dark">Update your Bid</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="input-group justify-content-center py-3 my-3">
+
+                                    <form method=post action="/tools/{{tool.id}}/bid">
+
+                                        {{form.csrf_token}}
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="bid-price">$</span>
+
+                                            {{form.bidamount(placeholder="Enter an amount", class_="form-control")}}
+
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="input-group float-right">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        {{form.submit(class_="btn btn-primary mx-2")}}
+                                    </div>
+                                </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+
+
+        {% else %}
+        <form><a href="/login"><button type="button" onclick="login" class=" btn btn-light mt-4">Login
+                    to Bid</button></a>
+        </form>
+        {% endif %}
+    </div>
+
+    </div>
+
+    </div>
+
+    </div>
+    <!-- End Item Description -->
+</main>
+
+
+{% endblock %}
+</body>
+
+</html>

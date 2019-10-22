@@ -1,0 +1,222 @@
+{% extends "userdash/basedash.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="The Dusty Garage">
+    <title> The Dusty Garage </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/ee9defe254.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <style>
+        .hero-image {
+            background-image: url("static/img/toolbg.jpg");
+            background-size: cover;
+
+
+        }
+
+        .special-card {
+            opacity: .9;
+        }
+
+        .holder {
+            width: auto;
+            display: inline-block;
+        }
+
+        .holder img {
+            width: 30%;
+            /* Will shrink image to 30% of its original width */
+            height: auto;
+        }
+
+        .text-light-blue {
+            color: #698abd
+        }
+
+        .bg-base-green {
+            background-color: #3C4631;
+        }
+
+        .bg-base-blue {
+            background-color: #263346;
+        }
+
+        .text-pink {
+            color: #de959a;
+        }
+
+        .btn-bg-dp {
+            background-color: #de8439;
+        }
+
+        .aaa {
+            width: 60% !important;
+            float: left;
+        }
+
+        .bbb {
+            width: 30% !important;
+            float: left;
+            margin-top: 24px;
+            margin-left: 5%;
+        }
+
+        .jumbotron {
+            height: 300px;
+        }
+    </style>
+</head>
+
+<!------------------------------------------------------------------------------------------------------>
+<!--------------------------------------Start Dashboard Nav--------------------------------------------->
+<!------------------------------------------------------------------------------------------------------>
+
+<div class="row" style="background: lightgrey ">
+    <nav class="navbar col-12 navbar-expand-sm bg-base-blue text-white pt-3">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#"><i class="fas fa-home"></i></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{'/userdash/userselling/{}'.format(current_user.id)}}"><i
+                        class="fas fa-sign"></i> Selling</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="#"><i class="fas fa-hand-holding-usd"></i> Sold</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{{'/userdash/userbids/{}'.format(current_user.id)}}"><i
+                        class="fas fa-money-bill-wave"></i> Your Bids</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+</section>
+<!------------------------------------------------------------------------------------------------------>
+<!--------------------------------------End Dashboard Nav----------------------------------------------->
+<!------------------------------------------------------------------------------------------------------>
+<main>
+    <!---Contains Main Content-->
+
+    <!--breadcrumb-start-->
+
+    <nav aria-label="breadcrumb">
+        <ol class="container-fluid ml-4 breadcrumb bg-white">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="manage.html">{{current_user.name}}'s Dashboard</a></li>
+        </ol>
+    </nav>
+
+    <!---Main Content-->
+    <div class="container-fluid px-0">
+        <section class="container-fluid text-center">
+            <!------------------------------------------------------------------------------------------------------>
+            <!------------------------------------Start Dashboard Cards--------------------------------------------->
+            <!------------------------------------------------------------------------------------------------------>
+            <div class="row py-0" style="background: lightgrey ">
+
+                <div class="card-deck mx-auto px-4 py-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">You've Made </p>
+                            <a href="{{'/userdash/userbids/{}'.format(current_user.id)}}" <h5
+                                class="card-title display-2 text-decoration-none text-dark text-center">{{bid_length}}
+                                Bids
+                                </h5></a>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">You've Listed</p>
+                            <a href="{{'/userdash/userselling/{}'.format(current_user.id)}}" <h5
+                                class="card-title display-2 text-decoration-none text-dark text-center">{{tool_length}}
+                                Tools
+                                </h5></a>
+
+
+                        </div>
+                    </div>
+
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <p class="card-text">You've Sold</p>
+                            <a href="{{'/userdash/userselling/{}'.format(current_user.id)}}" <h5 class="card-title
+                                    display-2 text-decoration-none text-dark text-center">{{sold_length}} Tools
+                                </h5></a>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <!---End Card row-->
+
+            <!--Start Recently Viewed-->
+
+            <!---Popular Items-->
+
+            <section>
+
+                <div class="text-dark">
+                    <h3 class="col-sm-12 ">Recently Viewed Items</h3>
+                </div>
+                <div class="container">
+                    <div class="card-deck my-4">
+                        {% for view in views %}
+
+                        <div class="card border-dark">
+                            <div class="card-header bg-base-blue text-white border-dark">
+                                <h5 class="card-title">{{view.brand}} {{view.tool_name }}</h5>
+                            </div>
+
+                            <div class="card-body">
+                                <img class="card-img-top mx-auto" src={{'/static/img/' + view.images }}
+                                    alt="Tool Image">
+
+                                <p class="card-text d-inline-block text-truncate pt-3" style="max-width: 200px;">
+                                    {{view.desc}}
+                                </p>
+
+                            </div>
+                            <div class="text-center text-inline">
+
+                                <div class="card-footer bg-base-blue text-white border-dark">
+                                    <h5> Starting Price </h5>
+
+                                    <h5 class="font-face"> ${{view.list_price}}</h5>
+                                    <hr><a href="{{'/tools/{}'.format(view.id) }}"
+                                        class="btn btn-bg-dp mx-auto btn-inline">Make
+                                        a
+                                        Bid</a>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            </section>
+
+
+</main>
+
+</div>
+{% endblock %}

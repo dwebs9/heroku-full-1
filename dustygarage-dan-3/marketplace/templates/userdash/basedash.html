@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="The Dusty Garage">
+    <title> The Dusty Garage </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/ee9defe254.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <style>
+        .hero-image {
+            background-image: url("static/img/toolbg.jpg");
+            background-size: cover;
+
+
+        }
+
+        .special-card {
+            opacity: .9;
+        }
+
+        .holder {
+            width: auto;
+            display: inline-block;
+        }
+
+        .holder img {
+            width: 30%;
+            /* Will shrink image to 30% of its original width */
+            height: auto;
+        }
+
+        .text-light-blue {
+            color: #698abd
+        }
+
+        .bg-base-green {
+            background-color: #3C4631;
+        }
+
+        .bg-base-blue {
+            background-color: #263346;
+        }
+
+        .text-pink {
+            color: #de959a;
+        }
+
+        .btn-bg-dp {
+            background-color: #de8439;
+        }
+
+        .aaa {
+            width: 60% !important;
+            float: left;
+        }
+
+        .bbb {
+            width: 30% !important;
+            float: left;
+            margin-top: 24px;
+            margin-left: 5%;
+        }
+
+        .jumbotron {
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!---Contains Navigation and Logo-->
+    <header>
+
+        <nav class="navbar navbar-expand-sm bg-base-blue text-white py-2">
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="container-fluid">
+
+                <a class="navbar-brand py-0 text-decoration-none text-pink display-4" href="/"><img
+                        src="/static\img\dg.png" height="80">
+                    {{current_user.name}}'s Dashboard</a>
+                </a>
+
+                <div class="navbar-nav text-white justify-content-end">
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+
+
+                        {% if current_user.is_authenticated %}
+
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-light text-black"><i class="far fa-user-circle"></i>
+                                {{ current_user.name }}</button>
+                            <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
+                                data-toggle="dropdown">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="dropdown-header">Manage</div>
+                                <a class="dropdown-item" href="{{ url_for('tool.create') }}">List a
+                                    Tool</a>
+                                <a class="dropdown-item" href="/userdash/main/{{current_user.id}}">Your
+                                    Dashboard</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ url_for('auth.logout') }}">Log Out</a>
+                            </div>
+                        </div>
+
+                        {% else %}
+
+                        <a class="nav-item font-weight-bold text-light-blue nav-link"
+                            href="{{ url_for('tool.create') }}"><i class="fas fa-dollar-sign"></i> List a Tool</a>
+
+                        <a class="nav-item font-weight-bold text-light-blue nav-link"
+                            href="{{ url_for('auth.login') }}"><i class="far fa-user-circle"></i> Login</a>
+
+                        <a class="nav-item font-weight-bold text-light-blue nav-link"
+                            href="{{ url_for('auth.register')}}"><i class="far fa-edit"></i> Register</a>
+
+
+
+                        {% endif %}
+
+                    </div>
+                </div>
+        </nav>
+
+    </header>
+
+    {% block content %}
+
+
+    {% endblock %}
+    <footer class="footer container-fluid">
+        <div class="row justify-content-center text-left bg-base-blue text-white pb-5 pt-4">
+
+            <div class="col-4">
+                <h6>About Us</h6>
+                <ul class="list-unstyled">
+                    <li><a class="text-reset" href="#">Our Story</a></li>
+                    <li><a class="text-reset" href="#">Contact Us</a></li>
+                    <li><a class="text-reset" href="#">Our Price Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="col-4">
+                <h6>Our Range</h6>
+                <ul class="list-unstyled text-white">
+                    <li><a class="text-reset" href="#">Categories</a></li>
+                    <li><a class="text-reset" href="#" class="text-decoration-none">Brands</a></li>
+                    <li><a class="text-reset" href="#">Top Sellers</a></li>
+                </ul>
+            </div>
+
+
+            <div class="col-4">
+                <h6>Resources</h6>
+                <ul class="list-unstyled text-reset">
+                    <li><a class="text-reset" href="#">Terms of Use</a></li>
+                    <li><a class="text-reset" href="#">Site Map</a></li>
+                    <li><a class="text-reset" href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row text-white bg-base-blue">
+            <div class="text-center col-12 py-5 mx-auto">
+
+                <p>Copyright &copy; 2019</p>
+
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+</body>
+
+</html>

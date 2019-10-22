@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<main>
+    <!---Contains Main Content-->
+    <section class="container-fluid mt-4 text-left">
+        <h3 class="display-4 mx-auto col-sm-12">{{current_user.name}}'s Dashboard</h3>
+
+    </section>
+    <!--breadcrumb-start-->
+    <nav>
+        <ol class="container-fluid ml-4 pb-5 pt-0 breadcrumb bg-white">
+            <li class="breadcrumb-item"><a href="main.index">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{'/userdash/main/{}'.format(current_user.id)}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a
+                    href="{{'/userdash/userselling/{}'.format(current_user.id)}}">{{current_user.name}}'s Listed
+                    Items</a></li>
+        </ol>
+    </nav>
+    <!--breadcrumb-end-->
+
+    <!---Main Content-->
+    <div class="container-fluid px-0" id="itemdescription">
+        <section class="container-fluid" id="services ">
+            <!------------------------------------------------------------------------------------------------------>
+            <!--------------------------------------Start Dashboard Nav--------------------------------------------->
+            <!------------------------------------------------------------------------------------------------------>
+
+            <div class="row" style="background: lightgrey ">
+                <nav class="navbar col-12 navbar-expand-sm bg-base-blue text-white pt-3">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{'/userdash/main/{}'.format(current_user.id)}}"><i
+                                    class="fas fa-home"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{'/userdash/userselling/{}'.format(current_user.id)}}"><i
+                                    class="fas fa-sign"></i> Selling</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#"><i class="fas fa-hand-holding-usd"></i> Sold</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="{{'/userdash/userbids/{}'.format(current_user.id)}}"><i
+                                    class="fas fa-money-bill-wave"></i> Your
+                                Bids</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <!------------------------------------------------------------------------------------------------------>
+            <!--------------------------------------End Dashboard Nav----------------------------------------------->
+            <!------------------------------------------------------------------------------------------------------>
+
+            <!------------------------------------------------------------------------------------------------------>
+            <!--------------------------------------Start Bids Made Table------------------------------------------->
+            <!------------------------------------------------------------------------------------------------------>
+            <div class="row py-0" style="background: lightgrey ">
+
+                <!-- List of Items being sold by user -->
+
+                <article class="col-sm-12 py-4" id="browse ">
+
+                    <div class="card">
+                        <h5 class="card-header">Items you are selling</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead class="bg-light">
+                                        <tr class="border-0">
+
+                                            <th class="border-0">Name</th>
+                                            <th class="border-0">List Date</th>
+                                            <th class="border-0">List Price</th>
+
+                                            <th class="border-0">Highest Bid</th>
+                                            <th class="border-0">Image</th>
+                                            <th class="border-0 text-center"></th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+
+                                        {% for tool in tool %}
+                                        <tr>
+                                            <td>{{tool.tool_name}}</td>
+                                            <td>{{tool.date_created.strftime("%b %d %Y")}}</td>
+                                            <th scope="row">${{tool.list_price}}</th>
+                                            <td>Not Availiable</td>
+                                            <td> <img class="img-fluid img-thumbnail" style="max-width: 70px;"
+                                                    src={{'/static/img/' + tool.images }}></td>
+                                            <td>
+                                                <form><a href="{{'/tools/{}/manage'.format(tool.id)}}"><button
+                                                            type="button" onclick="login"
+                                                            class=" btn btn-primary mt-4">Manage Item</button></a>
+                                                </form>
+                                            </td>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    </tr>
+                    {% endfor %}
+
+
+
+                    </tbody>
+
+                    </table>
+
+                </article>
+                <div class="row py-4" style="background: lightgrey ">
+                    <article class="col-sm-6 " id="sell ">
+
+
+
+                </div>
+
+                <!--End Row Div-->
+            </div>
+
+        </section>
+
+
+
+
+</main>
+
+</div>
+{% endblock %}

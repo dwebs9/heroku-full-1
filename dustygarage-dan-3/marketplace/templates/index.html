@@ -1,0 +1,127 @@
+{% extends "base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block content %}
+
+
+<!-- Jumbotron Search Start -->
+<section class="jumbotron jumbotron-fluid hero-image">
+
+    <h1 class="bg-base-blue col-4 text-white">Find The Perfect Tool</h1>
+    <div class="container">
+        <form class="inline-form col-sm-10">
+            <div class="input-group-lg col-sm-10">
+                <div class="aaa">
+                    {{wtf.form_field(form.landing_search, placeholder="I'm looking for...", type="text", class="form-control btn-success-mog")}}
+                </div>
+
+                <div class="bbb">
+                    {{wtf.form_field(form.landing_search_button, class="form-control btn btn-success btn-success-mod", )}}
+                </div>
+
+            </div>
+
+
+        </form>
+    </div>
+</section>
+<!-- Jumbotron Search ./ End -->
+
+<main>
+
+    <!---Contains Main Content-->
+
+    <!---Popular Items-->
+
+    <section>
+
+        <div class="text-dark">
+            <h3 class="col-sm-12 ">Recently Listed Items</h3>
+        </div>
+        <div class="container">
+            <div class="card-deck my-4">
+                {% for tool in tools %}
+
+                <div class="card border-dark">
+                    <div class="card-header bg-base-blue text-white border-dark">
+                        <h5 class="card-title">{{tool.tool_name}}</h5>
+                    </div>
+
+                    <div class="card-body">
+                        <img class="card-img-top mx-auto" src={{'../static/img/' + tool.images }} alt="Tool Image">
+
+                        <p class="card-text d-inline-block text-truncate pt-3" style="max-width: 200px;">{{tool.desc}}
+                        </p>
+
+                    </div>
+                    <div class="text-center text-inline">
+
+                        <div class="card-footer bg-base-blue text-white border-dark">
+                            <h5> Starting Price </h5>
+
+                            <h5 class="font-face"> ${{tool.list_price}}</h5>
+                            <hr><a href="{{'/tools/{}'.format(tool.id) }}" class="btn btn-bg-dp mx-auto btn-inline">Make
+                                a
+                                Bid</a>
+
+                        </div>
+                    </div>
+
+                </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </section>
+    <!-- Services -->
+
+    <section class="container-fluid text-center " id="services ">
+
+        <div class="row py-5 " style="background: lightgrey ">
+
+            <article class="col-sm-6 " id="browse ">
+
+                <img class="mx-auto mt-3 " src="static\img\toolhand.png " alt="Browse Tools to Buy " height="200px " />
+
+                <h3 class="display-4 ">Find A Tool</h3>
+
+                <p class="margin-bottom: 20px ">Browse through listings of new and used tools from local sellers. Once
+                    you find an item you are keen on,
+                    make a bid and the seller will contact you</p>
+
+                <button class="btn btn-success mb-3 ">Browse Categories</button>
+
+                <a href="item.html "></a>
+
+            </article>
+
+            <article class="col-sm-6 " id="sell ">
+
+                <img class="mx-auto mt-3 " src="static\img\shed.png " alt="Sell a Tool " height="200px " />
+
+
+                <h3 class="display-4 "> Sell a Tool</h3>
+
+                <p> Are your tools just collecting dust in your garage? Need to make a few bucks? Well its time to pull
+                    them
+                    out, dust them off and list them here</p>
+
+                <a href="/tools/create"><button type="button" onclick="login" class=" btn btn-success mt-4">Sell
+                        your tools
+                        here</button></a>
+
+
+            </article>
+
+        </div>
+
+        <!--End Row Div-->
+        </div>
+
+    </section>
+
+</main>
+
+<!-- End Main -->
+
+</div>
+
+{% endblock %}

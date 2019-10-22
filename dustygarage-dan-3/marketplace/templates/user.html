@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% block content %}
+
+<div class="container">
+    <div class="page-header row mt-3 mb-3">
+        <div class="col-md-12">
+            <h4 class="display-4">{{heading}}</h4>
+        </div>
+    </div>
+
+    <!-- Flash Messages -->
+
+    <!-- Flash Messages -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+    <!---Check if there are any messages-->
+    <div class="container">
+        <div class="row mt-3 mb-3">
+            <div class="col-md-12">
+                {% for category, message in messages %}
+                <!---Loops through the messages-->
+                <div class="{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %} {% endwith %}
+    <!-- /End Flash Messages -->
+
+
+    <!-- Render Form -->
+    <div class=" container">
+        <div class="col-md-6 pb-3">
+            {{ wtf.quick_form(form, button_map={'submit':'secondary'}) }}
+
+        </div>
+    </div>
+
+
+
+    <!--Start Form-->
+    {% if heading|lower =='login' %}
+    <div class="col-md-6 text-right">
+        <p>New User?
+            <a href="{{ url_for('auth.register') }}"> Click Here to Register</a>
+        </p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

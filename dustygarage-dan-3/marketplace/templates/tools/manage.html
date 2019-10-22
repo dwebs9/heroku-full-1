@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<main>
+    <!---Contains Main Content-->
+    <section class="container-fluid my-4 text-left" id="services">
+
+        <h3 class="display-4 mx-auto col-sm-12">Manage Item </h3>
+
+    </section>
+
+    <!--breadcrumb-start-->
+
+    <nav aria-label="breadcrumb">
+
+        <ol class="container-fluid ml-4 breadcrumb bg-white">
+
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+
+            <li class="breadcrumb-item"><a href="create.html">Sell</a></li>
+
+            <li class="breadcrumb-item"><a href="manage.html">Manage Items</a></li>
+
+            <li class="breadcrumb-item active">{{tool.tool_name}}</a></li>
+
+        </ol>
+
+    </nav>
+
+    <!---Main Content-->
+
+    <div class="container-fluid" id="itemdescription">
+        <!-- Image -->
+        <div class="row p-4" style="background-color: lightgray">
+
+            <div class="col-sm-3">
+
+                <h3 class="text-center pb-3">Description{{ heading }}</h3>
+
+                <article id="itemimg">
+
+                    <img src={{'/static/img/' + tool.images }} class="img-fluid max-width: 30%">
+
+                </article>
+
+                <h4>{{tool.tool_name}}</h4>
+
+                <p> {{tool.desc}}</p>
+
+            </div>
+            <!-- Pricing -->
+            <div class="col-sm-3">
+
+                <h3 class="text-center">Pricing</h3>
+
+                <div class="card mx-auto py-3 h-25 border-0" style="background-color: lightgray">
+
+
+                    <div class="card-body bg-dark text-center rounded text-white">
+
+                        <h1 class="card-title center pricing-card-title display-3">${{tool.list_price}}</h1>
+
+                        <medium class="text-white-50 ">Current Starting Price {{tool.sold_status}}</medium>
+
+                        <div class="input-group mt-4 mb-1">
+
+                            <div class="input-group-prepend">
+
+                                <span class="input-group-text" id="bid-price">$</span>
+
+                            </div>
+
+                            <input type="text" class="form-control" placeholder="Enter a new price"
+                                aria-label="Username" aria-describedby="basic-addon1">
+
+                        </div>
+
+                        <button type="button" class="btn btn-light mt-4">Set new price</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- List of Bids -->
+
+
+            {% if tool.sold_status == 0 %}
+            <div class="col-md-6">
+                <div class="card mx-4">
+                    <h5 class="card-header bg-primary">Current Bids</h5>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">Name</th>
+                                        <th class="border-0">Email</th>
+
+                                        <th class="border-0">Date of Bid</th>
+                                        <th class="border-0">Amount</th>
+                                        <th class="border-0 text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for bid, user in bid_user %}
+                                    <tr>
+                                        <td>{{bid.name}} {{bid.lastName}}</td>
+                                        <th scope="row">{{bid.emailid}}</th>
+                                        <td>{{user.bid_date.strftime("%b %d %Y")}}</td>
+                                        <td>${{user.bid_amount}}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <form method=post>
+                                                    </button>
+                                                    {{soldForm.csrf_token}}
+                                                    {{soldForm.bid_user_id(value= user.user_id )}}
+                                                    {{soldForm.submit(class_="btn btn-primary")}}
+                                            </div>
+                                        </td>
+                        </div>
+                    </div>
+                </div>
+
+                </tr>
+                </tbody>
+
+                </table>
+                {% endfor %}
+
+                {% elif tool.sold_status != 0 %}
+                {% for bid, user in bid_user %}
+                <div class="mx-auto">
+                    <div class="card mx-4">
+                        <h5 class="card-header text-center">Item Sold</h5>
+                        <div class="card-body text-center p-0">
+                            <h1><i class="far fa-handshake card card-title"></i></h1>
+                            <h5 class="card-title px-3">Buyer</h5>
+                            <p>{{bid.name}} {{bid.lastName}}</p>
+                            <p class="px-3">{{bid.emailid}}</p>
+                            <form class="pb-3" method=post>
+                                {{undoForm.csrf_token}}
+                                {{undoForm.undoSold(value= set_to_zero)}}
+                                {{undoForm.submit_undo(class_="btn btn-danger")}}
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+</main>
+</div>
+{% endblock %}
